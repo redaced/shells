@@ -1,4 +1,4 @@
-# /bin/sh
+#!/bin/bash
 ARCH=$(uname -m | sed 's/x86_//;s/i[3-6]86/32/')
 
 if [ -f /etc/lsb-release ]; then
@@ -14,10 +14,10 @@ elif [ -f /etc/redhat-release ]; then
 fi
 case $(uname -m) in
 86_64)
-    ARCH=x64  # or AMD64 or Intel64 or whatever
+    ARCH=x64  # 64bit
     ;;
 i*86)
-    ARCH=x86  # or IA32 or Intel32 or whatever
+    ARCH=x86  # 32bit
     ;;
 *)
     # leave ARCH as-is
@@ -25,16 +25,16 @@ i*86)
 esac
 
 # echo mysql install
-echo "MySQL Download"
+#echo "MySQL Download"
 if [[ $OS -eq "Ubuntu" ]]; then
-#   wget http://ftp.us.debian.org/debian/pool/main/m/mysql-5.1/mysql-server_5.1.73-1_all.deb
-   sudo apt-get install mysql -y
+#  sudo apt-get install apache2
+#  sudo apt-get install mysql-server libapache2-mod-auth-mysql php5-mysql
+#  sudo /usr/bin/mysql_secure_installation
+#  sudo apt-get install php5 libapache2-mod-php5 php5-mcrypt
+#  sudo rm /etc/apache2/mods-enabled/dir.conf
+#echo $'First line.\nSecond line.\nThird line.' >foo.txt
+sudo nano "<IfModule mod_dir.c> \n DirectoryIndex index.php index.html index.cgi index.pl index.php index.xhtml index.htm \n</IfModule>" >> /etc/apache2/mods-enabled/dir.conf
 fi
-echo  "MySQL deb install"
-   #sudo dpkg -i mysql-server_*_all.deb
 if [[ $ARCH -eq 64  ]]; then
    echo "64"
 fi
-echo $OS
-echo $VER
-echo $ARCH
